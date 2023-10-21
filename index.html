@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>간단한 웹 게임</title>
+    <title>사과 먹기</title>
     <style>
         body {
             text-align: center;
@@ -13,6 +13,7 @@
     </style>
 </head>
 <body>
+
     <canvas id="game-canvas" width="400" height="400"></canvas>
 
     <script>
@@ -20,37 +21,81 @@
         const canvas = document.getElementById("game-canvas");
         const ctx = canvas.getContext("2d");
 
-        // 게임 객체 초기 위치
+        // 공격 객체 초기 위치
         let x = canvas.width / 2;
-        let y = canvas.height - 30;
+        let y = canvas.height / 6;
+
+        let enemy_x = canvas.width / 2;
+        let enemy_y = canvas.height / 2;
 
         // 공 속도 및 방향
         let dx = 2;
-        let dy = -2;
+        let dy = 2;
 
         // 공 반지름
         const ballRadius = 10;
 
         // 공 그리기 함수
-        function drawBall() {
+        function drawBall(color) {
             ctx.beginPath();
-            ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-            ctx.fillStyle = "#0095DD";
+            ctx.arc(enemy_x, enemy_y, ballRadius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
             ctx.fill();
             ctx.closePath();
         }
 
-        // 게임 루프
-        function gameLoop() {
+        // 
+        function AttackBall() {
             // 캔버스 지우기
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // 공 그리기
-            drawBall();
+            drawBall("#0095DD");
 
             // 공 이동
-            x += dx;
-            y += dy;
+            enemy_x += dx;
+
+            // 화면 경계 충돌 검사
+            if (enemy_x + dx > canvas.width - ballRadius || enemy_x + dx < ballRadius) {
+                dx = -dx;
+            }
+
+            requestAnimationFrame(AttackBall);
+        }
+
+        function Movement() {
+            // 공 그리기
+            drawBall("#3595DD");
+
+            // 공 이동
+            let playerX = 0;
+            let playerY = 0;
+            const playerSpeed = 2;
+
+            // 플레이어 요소 가져오기
+            const playerElement = document.getElementById("player");
+
+            // 방향키 입력 감지
+            document.addEventListener("keydown", function(event) {
+                const key = event.key;
+
+                // 방향키에 따라 플레이어 이동
+                switch (key) {
+                    case "ArrowLeft":
+                        playerX -= playerSpeed;
+                        break;
+                    case "ArrowRight":
+                        playerX += playerSpeed;
+                        break;
+                    case "ArrowUp":
+                        playerY -= playerSpeed;
+                        break;
+                    case "ArrowDown":
+                        playerY += playerSpeed;
+                        break;
+                }                
+
+            });
 
             // 화면 경계 충돌 검사
             if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
@@ -60,10 +105,14 @@
                 dy = -dy;
             }
 
-            requestAnimationFrame(gameLoop);
+            requestAnimationFrame(AttackBall)
         }
 
-        gameLoop();
+        AttackBall();
+        Movement()
     </script>
+
+    게임 소개 : 가운데 공을 피해 사과 먹기
+    게임 방법 : 방향키
 </body>
 </html>
