@@ -7,12 +7,12 @@
     <link rel="apple-touch-icon" sizes="57x57" href="/2D-game/favicon-EatingApple/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/2D-game/favicon-EatingApple/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/2D-game/favicon-EatingApple/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/2D-game/favicon-EatingApple/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="76x76" href "/2D-game/favicon-EatingApple/apple-icon-76x76.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/2D-game/favicon-EatingApple/apple-icon-114x114.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/2D-game/favicon-EatingApple/apple-icon-120x120.png">
     <link rel="apple-touch-icon" sizes="144x144" href="/2D-game/favicon-EatingApple/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/2D-game/favicon-EatingApple/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/2D-game/favicon-EatingApple/apple-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/2d-game/favicon-EatingApple/apple-icon-180x180.png">
     <link rel="icon" type="image/png" sizes="192x192"  href="/2D-game/favicon-EatingApple/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/2D-game/favicon-EatingApple/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/2D-game/favicon-EatingApple/favicon-96x96.png">
@@ -40,7 +40,6 @@
         // 캔버스 엘리먼트 가져오기
         const canvas = document.getElementById("game-canvas");
         const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "rgb(175, 225, 175)";
 
         // 객체 초기 위치
         let enemy_x = canvas.width / 2;
@@ -51,11 +50,12 @@
 
         // 이미지 로딩 여부 확인을 위한 변수
         let imagesLoaded = 0;
-        const totalImages = 2;
+        const totalImages = 3;
 
         // 이미지 객체
         const image1 = new Image();
         const image2 = new Image();
+        const image3 = new Image();
 
         // 이미지 로딩 함수
         function loadImage(src, image) {
@@ -71,6 +71,7 @@
         // 이미지 파일 로딩
         loadImage("stump.png", image1);
         loadImage("stump.png", image2);
+        loadImage("apple.png", image3);
 
         // 공 속도 및 방향
         let dx = 2;
@@ -79,20 +80,28 @@
         // 공 반지름
         const ballRadius = 20;
 
-        // 레벨
-        document.getElementById("level").innerHTML = 1;
+        // 초기 레벨 및 속도 설정
+        let level = 1;
+        let ballSpeed = 2;
 
         // AttackBall 함수
         function AttackBall() {
             // 캔버스 지우기
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            // 캔버스 색채우기
+            ctx.fillStyle = "rgb(191,219,137)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
             // 그루터기 이미지 추가
             ctx.drawImage(image1, canvas.width/2 - 48, 80 - 24, 96, 48);
-            ctx.drawImage(image2, canvas.width/2 - 48, canvas.height-80 - 24, 96, 48);            
-
-            // 적 공 그리기
-            drawBall(enemy_x, enemy_y, "#0095DD", ballRadius);
+            ctx.drawImage(image2, canvas.width/2 - 48, canvas.height-80 - 24, 96, 48);   
+            
+            // 사과 이미지 추가
+            ctx.drawImage(image3, canvas.width/2 - 28.25, canvas.height-80-30-40, 56.5, 60);
+            
+            // 적 공 그리기 (색상와 반지름 변경)
+            drawBall(enemy_x, enemy_y, "red", ballRadius);
 
             // 공 이동
             enemy_x += dx;
@@ -143,7 +152,6 @@
             if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height - ballRadius * 2) {
                 playerY += playerSpeed;
             }
-
         }
 
         setInterval(movePlayer, 10);  // 10ms마다 플레이어 이동 함수 호출
