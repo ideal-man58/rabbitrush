@@ -67,35 +67,35 @@
         }
 
         // 방향키 입력 감지
-        document.addEventListener("keydown", function(event) {
-            const key = event.key;
+        const keys = {};  // 키 입력 상태 저장
 
-            // 방향키에 따라 플레이어 이동
-            switch (key) {
-                case "ArrowLeft":
-                    if (playerX - 2 > ballRadius) {
-                        playerX -= 2;
-                    }
-                    break;
-                case "ArrowRight":
-                    if (playerX + 2 < canvas.width - ballRadius * 2) {
-                        playerX += 2;
-                    }
-                    break;
-                case "ArrowUp":
-                    if (playerY - 2 > ballRadius * 2) {
-                        playerY -= 2;
-                    }
-                    break;
-                case "ArrowDown":
-                    if (playerY + 2 < canvas.height - ballRadius * 2) {
-                        playerY += 2;
-                    }
-                    break;
-            }
+        document.addEventListener("keydown", function(event) {
+            keys[event.key] = true;
         });
 
+        document.addEventListener("keyup", function(event) {
+            keys[event.key] = false;
+        });
+
+        function movePlayer() {
+            playerSpeed = 6
+
+            if (keys["ArrowLeft"] && playerX - playerSpeed > ballRadius) {
+                playerX -= playerSpeed;
+            }
+            if (keys["ArrowRight"] && playerX + playerSpeed < canvas.width - ballRadius * 2) {
+                playerX += playerSpeed;
+            }
+            if (keys["ArrowUp"] && playerY - playerSpeed > ballRadius * 2) {
+                playerY -= playerSpeed;
+            }
+            if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height - ballRadius * 2) {
+                playerY += playerSpeed;
+            }
+        }
+
         AttackBall();
+        setInterval(movePlayer, 10);  // 10ms마다 플레이어 이동 함수 호출
     </script>
 
     <p>
