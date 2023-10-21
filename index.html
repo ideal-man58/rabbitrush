@@ -35,31 +35,13 @@
         // 공 반지름
         const ballRadius = 10;
 
-        // 공격공 그리기 함수
-        function enemy_drawBall() {
-            ctx.beginPath();
-            ctx.arc(enemy_x, enemy_y, ballRadius, 0, Math.PI * 2);
-            ctx.fillStyle = "#0095DD";
-            ctx.fill();
-            ctx.closePath();
-        }
-
-        // 플레이어공 그리기 함수
-        function enemy_drawBall() {
-            ctx.beginPath();
-            ctx.arc(playerX, playerY, ballRadius*2, 0, Math.PI * 2);
-            ctx.fillStyle = "#8125AE";
-            ctx.fill();
-            ctx.closePath();
-        }
-
-        // 
+        // AttackBall 함수
         function AttackBall() {
             // 캔버스 지우기
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // 공 그리기
-            enemy_drawBall();
+            // 적 공 그리기
+            drawBall(enemy_x, enemy_y, "#0095DD", ballRadius);
 
             // 공 이동
             enemy_x += dx;
@@ -69,68 +51,27 @@
                 dx = -dx;
             }
 
-            Movement();
+            // 플레이어 공 그리기
+            drawBall(playerX, playerY, "#8125AE", ballRadius * 2);
 
             requestAnimationFrame(AttackBall);
         }
 
-        function Movement() {
-            // 공 그리기
-            drawBall("#3595DD");
-
-            // 공 초기화
-            let playerX = canvas.width / 2;
-            let playerY = canvas.height / 6;
-            const playerSpeed = 2;
-
-            // 플레이어 요소 가져오기
-            const playerElement = document.getElementById("player");
-
-            // 방향키 입력 감지
-            document.addEventListener("keydown", function(event) {
-                const key = event.key;
-
-                // 방향키에 따라 플레이어 이동
-                switch (key) {
-                    case "ArrowLeft":
-                        playerX -= playerSpeed;
-                        break;
-                    case "ArrowRight":
-                        playerX += playerSpeed;
-                        break;
-                    case "ArrowUp":
-                        playerY -= playerSpeed;
-                        break;
-                    case "ArrowDown":
-                        playerY += playerSpeed;
-                        break;
-                }                
-
-            });
-
-            // 화면 경계 충돌 검사
-            if (playerX + playerSpeed > canvas.width - ballRadius || playerX + playerSpeed < ballRadius) {
-                playerX -= playerSpeed;
-            }
-            else if (playerX + playerSpeed < canvas.width - ballRadius || playerX + playerSpeed < ballRadius) {
-                playerX += playerSpeed;
-            }
-            else if (playerY + playerSpeed > canvas.width - ballRadius || playerY + playerSpeed < ballRadius) {
-                playerY -= playerSpeed;
-            }
-            else if (playerY + playerSpeed < canvas.width - ballRadius || playerY + playerSpeed < ballRadius) {
-                playerY += playerSpeed;
-            }
-
-            // requestAnimationFrame(Movement)
+        // 공 그리기 함수
+        function drawBall(x, y, color, radius) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.closePath();
         }
 
         AttackBall();
     </script>
 
     <p>
-        게임 소개 : 가운데 공을 피해 사과 먹기<br>
-        게임 방법 : 방향키
+        게임 소개: 가운데 공을 피해 사과 먹기<br>
+        게임 방법: 방향키
     </p>
 
 </body>
