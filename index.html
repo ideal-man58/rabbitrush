@@ -21,9 +21,12 @@
         const canvas = document.getElementById("game-canvas");
         const ctx = canvas.getContext("2d");
 
-        // 공격 객체 초기 위치
+        // 객체 초기 위치
         let enemy_x = canvas.width / 2;
         let enemy_y = canvas.height / 2;
+
+        let playerX = canvas.width / 2;
+        let playerY = canvas.height / 6;
 
         // 공 속도 및 방향
         let dx = 2;
@@ -32,11 +35,20 @@
         // 공 반지름
         const ballRadius = 10;
 
-        // 공 그리기 함수
-        function drawBall(color) {
+        // 공격공 그리기 함수
+        function enemy_drawBall() {
             ctx.beginPath();
             ctx.arc(enemy_x, enemy_y, ballRadius, 0, Math.PI * 2);
-            ctx.fillStyle = color;
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // 플레이어공 그리기 함수
+        function enemy_drawBall() {
+            ctx.beginPath();
+            ctx.arc(playerX, playerY, ballRadius*2, 0, Math.PI * 2);
+            ctx.fillStyle = "#8125AE";
             ctx.fill();
             ctx.closePath();
         }
@@ -47,7 +59,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // 공 그리기
-            drawBall("#0095DD");
+            enemy_drawBall();
 
             // 공 이동
             enemy_x += dx;
@@ -64,9 +76,9 @@
             // 공 그리기
             drawBall("#3595DD");
 
-            // 공 설정
+            // 공 초기화
             let playerX = canvas.width / 2;
-            let playerY = canvas.height / 6;;
+            let playerY = canvas.height / 6;
             const playerSpeed = 2;
 
             // 플레이어 요소 가져오기
