@@ -68,8 +68,8 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // 그루터기 이미지 추가
-            ctx.drawImage(image1, canvas.width/2, 80);
-            ctx.drawImage(image2, canvas.width/2, canvas.height-80);            
+            ctx.drawImage(image1, canvas.width/2, 80, 64, 32);
+            ctx.drawImage(image2, canvas.width/2, canvas.height-80, 64, 32);            
 
             // 적 공 그리기
             drawBall(enemy_x, enemy_y, "#0095DD", ballRadius);
