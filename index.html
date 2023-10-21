@@ -66,6 +66,35 @@
             ctx.closePath();
         }
 
+        // 방향키 입력 감지
+        document.addEventListener("keydown", function(event) {
+            const key = event.key;
+
+            // 방향키에 따라 플레이어 이동
+            switch (key) {
+                case "ArrowLeft":
+                    if (playerX - 2 > ballRadius) {
+                        playerX -= 2;
+                    }
+                    break;
+                case "ArrowRight":
+                    if (playerX + 2 < canvas.width - ballRadius * 2) {
+                        playerX += 2;
+                    }
+                    break;
+                case "ArrowUp":
+                    if (playerY - 2 > ballRadius * 2) {
+                        playerY -= 2;
+                    }
+                    break;
+                case "ArrowDown":
+                    if (playerY + 2 < canvas.height - ballRadius * 2) {
+                        playerY += 2;
+                    }
+                    break;
+            }
+        });
+
         AttackBall();
     </script>
 
