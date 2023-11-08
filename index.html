@@ -45,8 +45,18 @@
         let enemy_x = canvas.width / 2;
         let enemy_y = canvas.height / 2;
 
+        // 플레이어 이미지 객체
+        const playerImage = new Image();
+        playerImage.src = "rabbit.png"; // 플레이어 이미지 파일 경로
+
+        // 플레이어 이미지 초기 위치
         let playerX = canvas.width / 2;
         let playerY = canvas.height / 6;
+
+        // 플레이어 이미지 그리기 함수
+        function drawPlayer() {
+            ctx.drawImage(playerImage, playerX, playerY, 50, 50); // 원하는 크기로 조정
+        }
 
         // 이미지 로딩 여부 확인을 위한 변수
         let imagesLoaded = 0;
