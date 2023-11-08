@@ -10,8 +10,10 @@
     <link rel="apple-touch-icon" sizes="76x76" href "/2D-game/favicon-EatingApple/apple-icon-76x76.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/2D-game/favicon-EatingApple/apple-icon-114x114.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/2D-game/favicon-EatingApple/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/2d-game/favicon-EatingApple/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/2D-game/favicon-EatingApple/android-icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/2D-game/favicon-EatingApple/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/2D-game/favicon-EatingApple/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/2d-game/favicon-EatingApple/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/2D-game/favicon-EatingApple/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/2D-game/favicon-EatingApple/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/2D-game/favicon-EatingApple/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/2D-game/favicon-EatingApple/favicon-16x16.png">
@@ -51,9 +53,13 @@
         let playerX = canvas.width / 2;
         let playerY = canvas.height / 6;
 
-        // 플레이어 이미지 크기
+        // 플레이어 이미지 그리기 함수
         const playerWidth = 60;
         const playerHeight = 100;
+
+        function drawPlayer() {
+            ctx.drawImage(playerImage, playerX-playerWidth/2, playerY-playerHeight/2, playerWidth, playerHeight); // 원하는 크기로 조정
+        }
 
         // 이미지 로딩 여부 확인을 위한 변수
         let imagesLoaded = 0;
@@ -64,9 +70,16 @@
         const image2 = new Image();
         const image3 = new Image();
 
-        // 초기 레벨 및 속도 설정
-        let level = 1;
-        let ballSpeed = 2;
+        // 이미지 로딩 함수
+        function loadImage(src, image) {
+            image.src = src;
+            image.onload = function() {
+                imagesLoaded++;
+                if (imagesLoaded === totalImages) {
+                    AttackBall();
+                }
+            };
+        }
 
         // 이미지 파일 로딩
         loadImage("stump.png", image1);
@@ -74,11 +87,15 @@
         loadImage("apple.png", image3);
 
         // 공 속도 및 방향
-        let dx = ballSpeed;
-        let dy = ballSpeed;
+        let dx = 2;
+        let dy = 2;
 
         // 공 반지름
         const ballRadius = 20;
+
+        // 초기 레벨 및 속도 설정
+        let level = 1;
+        let ballSpeed = 2;
 
         // AttackBall 함수
         function AttackBall() {
@@ -101,14 +118,10 @@
 
             // 공 이동
             enemy_x += dx;
-            enemy_y += dy;
 
             // 화면 경계 충돌 검사
             if (enemy_x + dx > canvas.width - ballRadius || enemy_x + dx < ballRadius) {
                 dx = -dx;
-            }
-            if (enemy_y + dy > canvas.height - ballRadius || enemy_y + dy < ballRadius) {
-                dy = -dy;
             }
 
             // 플레이어 공 그리기
@@ -116,23 +129,9 @@
 
             // 충돌 감지
             if (checkCollision(playerX, playerY, playerWidth, playerHeight, enemy_x, enemy_y, ballRadius)) {
-                // 게임 초기화
-                level = 1;
-                ballSpeed = 2;
-                enemy_x = canvas.width / 2;
-                enemy_y = canvas.height / 2;
-
-                // 레벨 표시 업데이트
-                document.getElementById("level").innerHTML = "레벨: " + level;
-            } else if (checkCollision(playerX, playerY, playerWidth, playerHeight, enemy_x, enemy_y, 30, 30)) {
-                // 플레이어와 사과 이미지 충돌 시
-                level++;
-                ballSpeed += 1;
-
-                // 레벨 표시 업데이트
-                document.getElementById("level").innerHTML = "레벨: " + level;
-
-                // 적 공 위치 초기화
+                // 충돌 시 초기화
+                playerX = canvas.width / 2;
+                playerY = canvas.height / 6;
                 enemy_x = canvas.width / 2;
                 enemy_y = canvas.height / 2;
             }
@@ -140,22 +139,31 @@
             requestAnimationFrame(AttackBall);
         }
 
-        // 충돌 감지 함수
-        function checkCollision(playerX, playerY, playerWidth, playerHeight, enemyX, enemyY, radius) {
-            const distX = Math.abs(playerX - enemyX);
-            const distY = Math.abs(playerY - enemyY);
+        // 공 그리기 함수
+        function drawBall(x, y, color, radius) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.closePath();
+        }
 
-            if (distX > (playerWidth / 2 + radius)) return false;
-            if (distY > (playerHeight / 2 + radius)) return false;
+        // 충돌 감지 함수
+        function checkCollision(playerX, playerY, playerWidth, playerHeight, enemyX, enemyY, enemyRadius) {
+            const distX = Math.abs(playerX - enemyX - enemyRadius);
+            const distY = Math.abs(playerY - enemyY - enemyRadius);
+
+            if (distX > (playerWidth / 2 + enemyRadius)) return false;
+            if (distY > (playerHeight / 2 + enemyRadius)) return false;
 
             if (distX <= playerWidth / 2) return true;
             if (distY <= playerHeight / 2) return true;
 
             const dx = distX - playerWidth / 2;
             const dy = distY - playerHeight / 2;
-            return (dx * dx + dy * dy <= (radius * radius));
+            return (dx * dx + dy * dy <= (enemyRadius * enemyRadius));
         }
-
+        
         // 방향키 입력 감지
         const keys = {};  // 키 입력 상태 저장
 
@@ -167,33 +175,30 @@
             keys[event.key] = false;
         });
 
-        // 플레이어 이동 함수
         function movePlayer() {
             playerSpeed = 6
 
-            if (keys["ArrowLeft"] && playerX - playerSpeed > 0) {
+            if (keys["ArrowLeft"] && playerX - playerSpeed > playerWidth/2) {
                 playerX -= playerSpeed;
             }
-            if (keys["ArrowRight"] && playerX + playerSpeed < canvas.width) {
+            if (keys["ArrowRight"] && playerX + playerSpeed < canvas.width - playerWidth/2) {
                 playerX += playerSpeed;
             }
-            if (keys["ArrowUp"] && playerY - playerSpeed > 0) {
+            if (keys["ArrowUp"] && playerY - playerSpeed > playerHeight/2) {
                 playerY -= playerSpeed;
             }
-            if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height) {
+            if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height - playerHeight/2) {
                 playerY += playerSpeed;
             }
         }
 
         setInterval(movePlayer, 10);  // 10ms마다 플레이어 이동 함수 호출
-
-        // 초기 게임 시작
-        AttackBall();
     </script>
 
     <p>
         게임 소개: 가운데 공을 피해 사과 먹기<br>
         게임 방법: 방향키
     </p>
+
 </body>
 </html>
