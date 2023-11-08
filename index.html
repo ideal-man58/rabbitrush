@@ -54,8 +54,11 @@
         let playerY = canvas.height / 6;
 
         // 플레이어 이미지 그리기 함수
+        const playerWidth = 60;
+        const playerHeight = 100;
+
         function drawPlayer() {
-            ctx.drawImage(playerImage, playerX, playerY, 63, 100); // 원하는 크기로 조정
+            ctx.drawImage(playerImage, playerX-playerWidth/2, playerY-playerHeight/2, playerWidth, playerHeight); // 원하는 크기로 조정
         }
 
         // 이미지 로딩 여부 확인을 위한 변수
@@ -150,16 +153,16 @@
         function movePlayer() {
             playerSpeed = 6
 
-            if (keys["ArrowLeft"] && playerX - playerSpeed > ballRadius * 2) {
+            if (keys["ArrowLeft"] && playerX - playerSpeed > playerWidth) {
                 playerX -= playerSpeed;
             }
-            if (keys["ArrowRight"] && playerX + playerSpeed < canvas.width - ballRadius * 2) {
+            if (keys["ArrowRight"] && playerX + playerSpeed < canvas.width - playerWidth) {
                 playerX += playerSpeed;
             }
-            if (keys["ArrowUp"] && playerY - playerSpeed > ballRadius * 2) {
+            if (keys["ArrowUp"] && playerY - playerSpeed > playerHeight) {
                 playerY -= playerSpeed;
             }
-            if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height - ballRadius * 2) {
+            if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height - playerHeight) {
                 playerY += playerSpeed;
             }
         }
