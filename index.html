@@ -153,16 +153,16 @@
         function movePlayer() {
             playerSpeed = 6
 
-            if (keys["ArrowLeft"] && playerX - playerSpeed > playerWidth) {
+            if (keys["ArrowLeft"] && playerX - playerSpeed > playerWidth/2) {
                 playerX -= playerSpeed;
             }
-            if (keys["ArrowRight"] && playerX + playerSpeed < canvas.width - playerWidth) {
+            if (keys["ArrowRight"] && playerX + playerSpeed < canvas.width - playerWidth/2) {
                 playerX += playerSpeed;
             }
-            if (keys["ArrowUp"] && playerY - playerSpeed > playerHeight) {
+            if (keys["ArrowUp"] && playerY - playerSpeed > playerHeight/2) {
                 playerY -= playerSpeed;
             }
-            if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height - playerHeight) {
+            if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height - playerHeight/2) {
                 playerY += playerSpeed;
             }
         }
