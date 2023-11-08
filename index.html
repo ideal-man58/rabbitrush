@@ -157,31 +157,31 @@
             }
 
             // 사과 충돌 감지
-            if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, canvas.height-120-apple_y, apple_x) && CollisionNum==0) {
-                // 충돌 시 레벨 증가 및 속도 증가
-                level++;
-                ballSpeed += 1;
+            // if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, canvas.height-120-apple_y, apple_x) && CollisionNum==0) {
+            //     // 충돌 시 레벨 증가 및 속도 증가
+            //     level++;
+            //     ballSpeed += 1;
 
-                // 충돌 시 사과 위치 결정 변수 증가
-                CollisionNum++;
+            //     // 충돌 시 사과 위치 결정 변수 증가
+            //     CollisionNum++;
 
-                // 다음 위치로 이동
-                apple_y = 120-apple_y;
+            //     // 다음 위치로 이동
+            //     apple_y = 120-apple_y;
 
-                // 레벨 업데이트
-                document.getElementById("level").textContent = "레벨: " + level;
-            }
-            else if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, 120-apple_y, apple_x) && CollisionNum==1) {
-                level++;
-                ballSpeed += 1;
+            //     // 레벨 업데이트
+            //     document.getElementById("level").textContent = "레벨: " + level;
+            // }
+            // else if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, 120-apple_y, apple_x) && CollisionNum==1) {
+            //     level++;
+            //     ballSpeed += 1;
 
-                // 충돌 시 사과 위치 결정 변수 감소
-                CollisionNum -= 1;
+            //     // 충돌 시 사과 위치 결정 변수 감소
+            //     CollisionNum -= 1;
 
-                apple_y = canvas.height-120-apple_y;
+            //     apple_y = canvas.height-120-apple_y;
 
-                document.getElementById("level").textContent = "레벨: " + level;
-            }
+            //     document.getElementById("level").textContent = "레벨: " + level;
+            // }
 
             requestAnimationFrame(AttackBall);
         }
