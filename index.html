@@ -123,7 +123,7 @@
             ctx.drawImage(image2, canvas.width/2 - stump_x/2, canvas.height-80-stump_y/2, stump_x, stump_y);   
             
             // 사과 이미지 추가
-            ctx.drawImage(image3, canvas.width/2 - apple_x/2, canvas.height-120-apple_y, apple_x, apple_y);
+            ctx.drawImage(image3, canvas.width/2 - apple_x/2, canvas.height-120-apple_y/2, apple_x, apple_y);
             
             // 적 공 그리기 (색상와 반지름 변경)
             drawBall(enemy_x, enemy_y, "red", ballRadius);
@@ -149,8 +149,8 @@
                 enemy_x = canvas.width / 2;
                 enemy_y = canvas.height / 2;
 
-                // CollisionNum = 0;
-                // apple_y = canvas.height-120-apple_y
+                CollisionNum = 0;
+                apple_y = canvas.height-120-apple_y/2
 
                 // 레벨 표시 업데이트
                 document.getElementById("level").innerHTML = "레벨: " + level;
