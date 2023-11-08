@@ -58,7 +58,7 @@
         const playerHeight = 100;
 
         function drawPlayer() {
-            ctx.drawImage(playerImage, playerX-playerWidth/2, playerY-playerHeight/2, playerWidth, playerHeight); // 원하는 크기로 조정
+            ctx.drawImage(playerImage, playerX-playerWidth/2, playerY-playerHeight/2, playerWidth, playerHeight);
         }
 
         // 이미지 로딩 여부 확인을 위한 변수
@@ -102,6 +102,9 @@
         // 초기 사과 위치 확인
         let CollisionNum = 0;
 
+        // 사과 위치 변수
+        let MoveApple = 0;
+
         // AttackBall 함수
         function AttackBall() {
             // 캔버스 지우기
@@ -115,25 +118,25 @@
             const stump_x = 96;
             const stump_y = 48;
 
-            const apple_x = 56.5;
-            const apple_y = 60;
+            let apple_x = 56.5;
+            let apple_y = 60;
 
             // 그루터기 이미지 추가
             ctx.drawImage(image1, canvas.width/2 - stump_x/2, 80-stump_y/2, stump_x, stump_y);
             ctx.drawImage(image2, canvas.width/2 - stump_x/2, canvas.height-80-stump_y/2, stump_x, stump_y);   
             
             // 사과 이미지 추가
-            ctx.drawImage(image3, canvas.width/2 - apple_x/2, canvas.height-120-apple_y/2, apple_x, apple_y);
+            ctx.drawImage(image3, canvas.width/2 - apple_x/2, canvas.height-120-apple_y/2-MoveApple, apple_x, apple_y);
             
             // 적 공 그리기 (색상와 반지름 변경)
-            drawBall(enemy_x, enemy_y, "red", ballRadius);
+            drawBall(enemy_x, enemy_y, "#9424FF", ballRadius);
 
             // 공 이동
-            enemy_x += dx;
+            enemy_x += ballSpeed;
 
             // 화면 경계 충돌 검사
-            if (enemy_x + dx > canvas.width - ballRadius || enemy_x + dx < ballRadius) {
-                dx = -dx;
+            if (enemy_x + ballSpeed > canvas.width - ballRadius || enemy_x + ballSpeed < ballRadius) {
+                ballSpeed = -ballSpeed;
             }
 
             // 플레이어 공 그리기
@@ -150,38 +153,49 @@
                 enemy_y = canvas.height / 2;
 
                 CollisionNum = 0;
-                apple_y = canvas.height-120-apple_y/2
+                MoveApple = 0;
 
                 // 레벨 표시 업데이트
                 document.getElementById("level").innerHTML = "레벨: " + level;
             }
 
             // 사과 충돌 감지
-            // if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, canvas.height-120-apple_y, apple_x) && CollisionNum==0) {
-            //     // 충돌 시 레벨 증가 및 속도 증가
-            //     level++;
-            //     ballSpeed += 1;
+            if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, canvas.height-120-apple_y, apple_x) && CollisionNum==0) {
+                // 충돌 시 레벨 증가 및 속도 증가
+                level++;
+                if (ballSpeed>0) {
+                    ballSpeed += 0.5;
+                }
+                else {
+                    ballSpeed -= 0.5;
+                }
 
-            //     // 충돌 시 사과 위치 결정 변수 증가
-            //     CollisionNum++;
+                // 충돌 시 사과 위치 결정 변수 증가
+                CollisionNum++;
 
-            //     // 다음 위치로 이동
-            //     apple_y = 120-apple_y;
+                // 사과 이동 변수 변경
+                MoveApple = 340;
 
-            //     // 레벨 업데이트
-            //     document.getElementById("level").textContent = "레벨: " + level;
-            // }
-            // else if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, 120-apple_y, apple_x) && CollisionNum==1) {
-            //     level++;
-            //     ballSpeed += 1;
+                // 레벨 업데이트
+                document.getElementById("level").textContent = "레벨: " + level;
+            }
+            else if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, 120-apple_y, apple_x) && CollisionNum==1) {
+                level++;
+                if (ballSpeed>0) {
+                    ballSpeed += 0.5;
+                }
+                else {
+                    ballSpeed -= 0.5;
+                }
 
-            //     // 충돌 시 사과 위치 결정 변수 감소
-            //     CollisionNum -= 1;
+                // 충돌 시 사과 위치 결정 변수 감소
+                CollisionNum -= 1;
 
-            //     apple_y = canvas.height-120-apple_y;
+                // 사과 이동 변수 변경
+                MoveApple = 0;
 
-            //     document.getElementById("level").textContent = "레벨: " + level;
-            // }
+                document.getElementById("level").textContent = "레벨: " + level;
+            }
 
             requestAnimationFrame(AttackBall);
         }
