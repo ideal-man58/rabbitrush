@@ -127,6 +127,15 @@
             // 플레이어 공 그리기
             drawPlayer();
 
+            // 충돌 감지
+            if (checkCollision(playerX, playerY, playerWidth, playerHeight, enemy_x, enemy_y, ballRadius)) {
+                // 충돌 시 초기화
+                playerX = canvas.width / 2;
+                playerY = canvas.height / 6;
+                enemy_x = canvas.width / 2;
+                enemy_y = canvas.height / 2;
+            }
+
             requestAnimationFrame(AttackBall);
         }
 
@@ -139,6 +148,22 @@
             ctx.closePath();
         }
 
+        // 충돌 감지 함수
+        function checkCollision(playerX, playerY, playerWidth, playerHeight, enemyX, enemyY, enemyRadius) {
+            const distX = Math.abs(playerX - enemyX - enemyRadius);
+            const distY = Math.abs(playerY - enemyY - enemyRadius);
+
+            if (distX > (playerWidth / 2 + enemyRadius)) return false;
+            if (distY > (playerHeight / 2 + enemyRadius)) return false;
+
+            if (distX <= playerWidth / 2) return true;
+            if (distY <= playerHeight / 2) return true;
+
+            const dx = distX - playerWidth / 2;
+            const dy = distY - playerHeight / 2;
+            return (dx * dx + dy * dy <= (enemyRadius * enemyRadius));
+        }
+        
         // 방향키 입력 감지
         const keys = {};  // 키 입력 상태 저장
 
