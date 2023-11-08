@@ -130,10 +130,15 @@
             // 충돌 감지
             if (checkCollision(playerX, playerY, playerWidth, playerHeight, enemy_x, enemy_y, ballRadius)) {
                 // 충돌 시 초기화
+                level = 1;
+                ballSpeed = 2;
                 playerX = canvas.width / 2;
                 playerY = canvas.height / 6;
                 enemy_x = canvas.width / 2;
                 enemy_y = canvas.height / 2;
+
+                // 레벨 표시 업데이트
+                document.getElementById("level").innerHTML = "레벨: " + level;
             }
 
             requestAnimationFrame(AttackBall);
