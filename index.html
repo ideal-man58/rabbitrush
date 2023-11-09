@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사과 먹기</title>
     <!--웹사이트 아이콘-->
     <link rel="apple-touch-icon" sizes="57x57" href="/2D-game/favicon-EatingApple/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/2D-game/favicon-EatingApple/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/2D-game/favicon-EatingApple/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href "/2D-game/favicon-EatingApple/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/2D-game/favicon-EatingApple/apple-icon-76x76.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/2D-game/favicon-EatingApple/apple-icon-114x114.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/2D-game/favicon-EatingApple/apple-icon-120x120.png">
     <link rel="apple-touch-icon" sizes="144x144" href="/2D-game/favicon-EatingApple/apple-icon-144x144.png">
@@ -22,17 +23,15 @@
     <meta name="msapplication-TileImage" content="/2D-game/favicon-EatingApple/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <style>
-        body {
-            text-align: center;
-        }
-        #game-canvas {
-            border: 2px solid black;
-        }
-    </style>
+    <!-- simple box CSS 파일 연결 -->
+    <link rel="stylesheet" href="simple-box.css">
 </head>
 <body>
-    <p id="level">레벨: 1</p> <!-- 초기 레벨을 1로 설정 -->
+    <h1>
+        사과 먹기
+    </h1>
+
+    <h3 id="level">레벨: 1</h3> <!-- 초기 레벨을 1로 설정 -->
 
     <canvas id="game-canvas" width="700" height="500"></canvas>
 
@@ -257,10 +256,24 @@
         setInterval(movePlayer, 10);  // 10ms마다 플레이어 이동 함수 호출
     </script>
 
-    <p>
-        게임 소개: 가운데 공을 피해 사과 먹기<br>
-        게임 방법: 방향키
-    </p>
-
+    <div class="simple-box">
+        <p>
+            평화로운 사과 농장에서 시작된 '사과 먹기'는 토끼가 공을 피해 사과를 먹는 게임입니다.
+            <br>
+            <br>
+            사과를 먹을 수록 점점 빨라지는 공을 피하고, 레벨업하여 놀라운 속도의 도전을 경험하세요!
+            <br>
+            <br>
+            게임 방법: 방향키
+            <br>
+            <br>
+            위 게임의 소스 코드를 
+            <a href="https://github.com/ideal-man58/Apple-Eater">Github</a>
+            에서 볼 수 있습니다.
+            <br>
+            <br>
+            개발자 최고 기록 : 53
+        </p>
+    </div>
 </body>
 </html>

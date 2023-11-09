@@ -1,0 +1,11 @@
+body {
+    text-align: center;
+}
+
+.simple-box {
+    padding: 10px;
+    width: 800px;
+    height: 250px;
+    margin: auto;
+    background-color: rgb(230, 230, 230);
+}
