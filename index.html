@@ -76,6 +76,7 @@
             image.onload = function() {
                 imagesLoaded++;
                 if (imagesLoaded === totalImages) {
+                    imagesLoaded = 0; // 초기화 추가
                     AttackBall();
                 }
             };
@@ -142,8 +143,8 @@
             // 플레이어 공 그리기
             drawPlayer();
 
-            // 충돌 감지
-            if (checkCollision(playerX, playerY, playerWidth, playerHeight, enemy_x, enemy_y, ballRadius)) {
+            // 공 충돌 감지
+            if (checkCollision(playerX*1.06, playerY*1.09, playerWidth, playerHeight, enemy_x, enemy_y, ballRadius)) {
                 // 충돌 시 초기화
                 level = 1;
                 ballSpeed = 2;
@@ -160,7 +161,7 @@
             }
 
             // 사과 충돌 감지
-            if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, canvas.height-120-apple_y, apple_x) && CollisionNum==0) {
+            if (checkCollision(playerX*0.9, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, canvas.height-120-apple_y/2, apple_x) && CollisionNum==0) {
                 // 충돌 시 레벨 증가 및 속도 증가
                 level++;
                 if (ballSpeed>0) {
@@ -179,7 +180,7 @@
                 // 레벨 업데이트
                 document.getElementById("level").textContent = "레벨: " + level;
             }
-            else if (checkCollision(playerX, playerY, playerWidth, playerHeight, canvas.width/2 - apple_x/2, 120-apple_y, apple_x) && CollisionNum==1) {
+            else if (checkCollision(playerX+playerWidth, playerY+playerHeight*1.3, playerWidth, playerHeight, canvas.width/2 - apple_x/2, 120-apple_y/2, apple_x) && CollisionNum==1) {
                 level++;
                 if (ballSpeed>0) {
                     ballSpeed += 0.5;
@@ -217,8 +218,8 @@
             if (distX > (playerWidth / 2 + enemyRadius)) return false;
             if (distY > (playerHeight / 2 + enemyRadius)) return false;
 
-            if (distX <= playerWidth / 2) return true;
-            if (distY <= playerHeight / 2) return true;
+            if (distX + enemyRadius <= playerWidth/2) return true;
+            if (distY + enemyRadius <= playerHeight/2) return true;
 
             const dx = distX - playerWidth / 2;
             const dy = distY - playerHeight / 2;
