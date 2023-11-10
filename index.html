@@ -8,22 +8,22 @@
     <meta name="keywords" content="토끼 게임, 사과 먹기, 래빗러쉬, 래빗 러쉬, 간단한 게임">
 
     <!--웹사이트 아이콘-->
-    <link rel="apple-touch-icon" sizes="57x57" href="/Apple-Eater/favicon-EatingApple/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/Apple-Eater/favicon-EatingApple/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/Apple-Eater/favicon-EatingApple/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/Apple-Eater/favicon-EatingApple/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/Apple-Eater/favicon-EatingApple/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/Apple-Eater/favicon-EatingApple/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/Apple-Eater/favicon-EatingApple/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/Apple-Eater/favicon-EatingApple/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/Apple-Eater/favicon-EatingApple/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/Apple-Eater/favicon-EatingApple/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/Apple-Eater/favicon-EatingApple/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/Apple-Eater/favicon-EatingApple/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/Apple-Eater/favicon-EatingApple/favicon-16x16.png">
-    <link rel="manifest" href="/Apple-Eater/favicon-EatingApple/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Rabbit-Rush/favicon-EatingApple/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/Rabbit-Rush/favicon-EatingApple/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Rabbit-Rush/favicon-EatingApple/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/Rabbit-Rush/favicon-EatingApple/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Rabbit-Rush/favicon-EatingApple/favicon-16x16.png">
+    <link rel="manifest" href="/Rabbit-Rush/favicon-EatingApple/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/Apple-Eater/favicon-EatingApple/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="/Rabbit-Rush/favicon-EatingApple/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
     <!-- simple box CSS 파일 연결 -->
@@ -347,6 +347,11 @@
                 textElement.style.display = "none";
             }
         }
+
+        // 우클릭 막기
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
 
         // 초기 호출
         AttackBall();
