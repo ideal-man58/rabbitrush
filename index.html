@@ -25,8 +25,36 @@
 
     <!-- simple box CSS 파일 연결 -->
     <link rel="stylesheet" href="simple-box.css">
+    <style>
+        /* 박스 스타일 */
+        .box {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+            width: 700px;
+            height: 250px;
+            padding: 20px;
+        }
+
+        /* 텍스트 스타일 */
+        .box p {
+            font-size: 18px;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
+    <!-- 캔버스 앞에 위치할 박스 -->
+    <div class="box" id="textBox">
+        <p>이곳으로 움직여 시작</p>
+    </div>
+
     <h1>
         사과 먹기
     </h1>
@@ -86,10 +114,6 @@
         loadImage("stump.png", image2);
         loadImage("apple.png", image3);
 
-        // 공 속도 및 방향
-        let dx = 2;
-        let dy = 2;
-
         // 공 반지름
         const ballRadius = 20;
 
@@ -97,7 +121,7 @@
         let level = 1;
         document.getElementById("level").textContent = "레벨: " + level; // 레벨 업데이트
 
-        let ballSpeed = 2;
+        let ballSpeed = 200;
 
         // 초기 사과 위치 확인
         let CollisionNum = 0;
@@ -105,8 +129,14 @@
         // 사과 위치 변수
         let MoveApple = 0;
 
+        // 게임 루프 제어 변수
+        let lastFrameTime = 0;
+
         // AttackBall 함수
-        function AttackBall() {
+        function AttackBall(timestamp) {
+            // 시간 간격 계산
+            const deltaTime = (timestamp - lastFrameTime) / 1000; // 초 단위로 변환
+            
             // 캔버스 지우기
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -114,6 +144,18 @@
             ctx.fillStyle = "rgb(191,219,137)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // 게임 로직 업데이트
+            updateGameLogic(deltaTime);
+
+            // 다음 프레임 요청
+            requestAnimationFrame(AttackBall);
+        }
+
+        // AttackBall 함수 호출
+        requestAnimationFrame(AttackBall);
+
+        // 게임 로직 업데이트 함수
+        function updateGameLogic(deltaTime) {
             // 각 이미지 크기
             const stump_x = 96;
             const stump_y = 48;
@@ -132,27 +174,27 @@
             drawBall(enemy_x, enemy_y, "#9424FF", ballRadius);
 
             // 공 이동
-            enemy_x += ballSpeed;
+            enemy_x += ballSpeed * deltaTime;
 
             // 화면 경계 충돌 검사
-            if (enemy_x + ballSpeed > canvas.width - ballRadius || enemy_x + ballSpeed < ballRadius) {
+            if (enemy_x + ballSpeed * deltaTime > canvas.width - ballRadius || enemy_x + ballSpeed * deltaTime < ballRadius) {
                 if (ballSpeed > 0) {
-                    enemy_x = canvas.width-ballRadius
+                    enemy_x = canvas.width-ballRadius*2
                 }
                 else {
-                    enemy_x = 0+ballRadius
+                    enemy_x = 0+ballRadius*2
                 }
                 ballSpeed = -ballSpeed;
             }
 
-            // 플레이어 공 그리기
+            // 플레이어 그리기
             drawPlayer();
 
             // 공 충돌 감지
             if (checkCollision(playerX*1.06, playerY*1.09, playerWidth, playerHeight, enemy_x, enemy_y, ballRadius)) {
                 // 충돌 시 초기화
                 level = 1;
-                ballSpeed = 2;
+                ballSpeed = 200;
                 playerX = canvas.width / 2;
                 playerY = canvas.height / 6;
                 enemy_x = canvas.width / 2;
@@ -170,10 +212,10 @@
                 // 충돌 시 레벨 증가 및 속도 증가
                 level++;
                 if (ballSpeed>0) {
-                    ballSpeed += 0.5;
+                    ballSpeed += 80;
                 }
                 else {
-                    ballSpeed -= 0.5;
+                    ballSpeed -= 80;
                 }
 
                 // 충돌 시 사과 위치 결정 변수 증가
@@ -188,10 +230,10 @@
             else if (checkCollision(playerX+playerWidth, playerY+playerHeight*1.3, playerWidth, playerHeight, canvas.width/2 - apple_x/2, 120-apple_y/2, apple_x) && CollisionNum==1) {
                 level++;
                 if (ballSpeed>0) {
-                    ballSpeed += 1;
+                    ballSpeed += 80;
                 }
                 else {
-                    ballSpeed -= 1;
+                    ballSpeed -= 80;
                 }
 
                 // 충돌 시 사과 위치 결정 변수 감소
@@ -203,8 +245,12 @@
                 document.getElementById("level").textContent = "레벨: " + level;
             }
 
-            requestAnimationFrame(AttackBall);
-        }
+            // 플레이어 이동
+            movePlayer(deltaTime);
+
+            // 마지막 프레임 시간 갱신
+            lastFrameTime = performance.now();
+    }
 
         // 공 그리기 함수
         function drawBall(x, y, color, radius) {
@@ -242,24 +288,65 @@
             keys[event.key] = false;
         });
 
-        function movePlayer() {
-            playerSpeed = 6
+        function movePlayer(deltaTime) {
+            playerSpeed = 800;
 
-            if (keys["ArrowLeft"] && playerX - playerSpeed > playerWidth/2) {
-                playerX -= playerSpeed;
+            // 새로운 위치 계산
+            let newPlayerX = playerX;
+            let newPlayerY = playerY;
+
+            if (keys["ArrowLeft"]) {
+                newPlayerX -= playerSpeed * deltaTime;
             }
-            if (keys["ArrowRight"] && playerX + playerSpeed < canvas.width - playerWidth/2) {
-                playerX += playerSpeed;
+            if (keys["ArrowRight"]) {
+                newPlayerX += playerSpeed * deltaTime;
             }
-            if (keys["ArrowUp"] && playerY - playerSpeed > playerHeight/2) {
-                playerY -= playerSpeed;
+            if (keys["ArrowUp"]) {
+                newPlayerY -= playerSpeed * deltaTime;
             }
-            if (keys["ArrowDown"] && playerY + playerSpeed < canvas.height - playerHeight/2) {
-                playerY += playerSpeed;
+            if (keys["ArrowDown"]) {
+                newPlayerY += playerSpeed * deltaTime;
+            }
+
+            // 새로운 위치에서 벽과의 충돌 확인
+            const playerRadiusX = playerWidth / 2;
+            const playerRadiusY = playerHeight / 2;
+
+            // 좌우 경계 검사
+            if (newPlayerX - playerRadiusX < 0) {
+                newPlayerX = playerRadiusX;
+            } else if (newPlayerX + playerRadiusX > canvas.width) {
+                newPlayerX = canvas.width - playerRadiusX;
+            }
+
+            // 상하 경계 검사
+            if (newPlayerY - playerRadiusY < 0) {
+                newPlayerY = playerRadiusY;
+            } else if (newPlayerY + playerRadiusY > canvas.height) {
+                newPlayerY = canvas.height - playerRadiusY;
+            }
+
+            // 캐릭터가 시작으로 이동하면 텍스트 없애기
+            if (newPlayerY > canvas.height / 2 - playerHeight/2 + 20) {
+                hideText();
+            }
+
+            playerX = newPlayerX;
+            playerY = newPlayerY;
+        }
+
+        function hideText() {
+            // 텍스트를 감싸고 있는 <p> 요소를 가져옴
+            const textElement = document.querySelector(".box p");
+
+            // 텍스트가 있는지 확인하고 숨기기
+            if (textElement) {
+                textElement.style.display = "none";
             }
         }
 
-        setInterval(movePlayer, 10);  // 10ms마다 플레이어 이동 함수 호출
+        // 초기 호출
+        AttackBall();
     </script>
 
     <div class="simple-box">
@@ -278,7 +365,7 @@
             에서 볼 수 있습니다.
             <br>
             <br>
-            개발자 최고 기록 : 53
+            개발자 최고 기록 : 56
         </p>
     </div>
 </body>
