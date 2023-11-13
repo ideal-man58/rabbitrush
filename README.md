@@ -2,6 +2,10 @@
 
 **래빗 러쉬**는 빠르게 커지는 공을 피하면서 사과를 먹는 간단하면서도 중독성 있는 웹 게임입니다.
 
+[Rabbit Rush 웹사이트](https://rabbitrush.kr)에서 게임을 즐겨보세요.
+
+![ex_gameplay](/ex_gameplay)
+
 
 ## 특징
 
