@@ -4,7 +4,7 @@
 
 [Rabbit Rush 웹사이트](https://rabbitrush.kr)에서 게임을 즐겨보세요.
 
-![ex_gameplay](/ex_gameplay)
+![ex_gameplay](/ex_gameplay.jpg)
 
 
 ## 특징
