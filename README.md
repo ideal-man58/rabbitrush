@@ -4,6 +4,8 @@
 
 [Rabbit Rush 웹사이트](https://rabbitrush.kr)에서 게임을 즐겨보세요.
 
+개발자 최고 기록 : 56
+
 <img src="https://rabbitrush.kr/ex_gameplay.JPG" alt="ex_gameplay" width="90%">
 
 
@@ -12,13 +14,6 @@
 - **빠른 플레이**: 게임이 레벨이 증가함에 따라 점점 더 빠르게 도전이 됩니다.
 - **간단한 조작**: 방향키를 사용하여 빠르게 이동하세요.
 - **사과 먹기**: 사과를 먹으면 레벨이 올라가고 게임이 더 어려워집니다.
-
-
-## 게임 플레이
-
-[Rabbit Rush 웹사이트](https://rabbitrush.kr)에서 게임을 즐겨보세요.
-
-개발자 최고 기록 : 56
 
 
 ## 기여하기
