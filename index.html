@@ -60,7 +60,7 @@
     </div>
 
     <h1>
-        사과 먹기
+        래빗러쉬
     </h1>
 
     <h3 id="level">레벨: 1</h3> <!-- 초기 레벨을 1로 설정 -->
@@ -348,6 +348,14 @@
                 textElement.style.display = "none";
             }
         }
+
+        // 방향키 스크롤 방지
+        window.addEventListener('keydown', function (e) {
+            // 눌린 키가 화살표 키인지 확인
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+            e.preventDefault(); // 기본 동작 방지 (스크롤)
+            }
+        });
 
         // 우클릭 막기
         document.addEventListener('contextmenu', function (e) {
