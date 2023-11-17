@@ -5,7 +5,7 @@
 [rabbitrush 웹사이트](https://rabbitrush.kr)에서 게임을 즐겨보세요.
 
 개발자 최고 기록 : 56.
-<img src="https://rabbitrush.kr/ex_gameplay.JPG" alt="ex_gameplay" width="90%">
+<img src="https://rabbitrush.kr/ex_gameplay.png" alt="ex_gameplay" width="100%">
 
 
 ## 특징
@@ -17,8 +17,8 @@
 
 ## 기여하기
 
-- 게임에 버그를 발견하거나 기능 추가 아이디어가 있다면 [이슈를 등록해주세요](https://github.com/ideal-man58/rabbitrush/issues).
-- 코드에 기여하고 싶다면 포크하여 풀 리퀘스트를 보내주세요.
+- 게임에 버그를 발견하거나 기능 추가 아이디어가 있다면 [이슈를 등록해주세요](https://github.com/ideal-man58/Rabbit-Rush/issues).
+- 코드에 기여하고 싶다면 포크하여 [풀 리퀘스트](https://github.com/ideal-man58/rabbitrush/pulls)를 보내주세요.
 
 
 ## 라이센스
