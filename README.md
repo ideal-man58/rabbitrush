@@ -1,11 +1,11 @@
-# 래빗 러쉬(Rabbit Rush)
+# 래빗러쉬(Rabbit Rush)
 
-**래빗 러쉬**는 빠르게 커지는 공을 피하면서 사과를 먹는 간단하면서도 중독성 있는 웹 게임입니다.
+**래빗러쉬**는 빠르게 커지는 공을 피하면서 사과를 먹는 간단하면서도 중독성 있는 웹 게임입니다.
 
 [Rabbit Rush 웹사이트](https://rabbitrush.kr)에서 게임을 즐겨보세요.
 
 개발자 최고 기록 : 56.
-<img src="https://rabbitrush.kr/ex_gameplay.JPG" alt="ex_gameplay" width="90%">
+<img src="https://rabbitrush.kr/ex_gameplay.png" alt="ex_gameplay" width="100%">
 
 
 ## 특징
@@ -18,7 +18,7 @@
 ## 기여하기
 
 - 게임에 버그를 발견하거나 기능 추가 아이디어가 있다면 [이슈를 등록해주세요](https://github.com/ideal-man58/Rabbit-Rush/issues).
-- 코드에 기여하고 싶다면 포크하여 풀 리퀘스트를 보내주세요.
+- 코드에 기여하고 싶다면 포크하여 [풀 리퀘스트](https://github.com/ideal-man58/rabbitrush/pulls)를 보내주세요.
 
 
 ## 라이센스
