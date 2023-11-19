@@ -254,7 +254,7 @@
 
             // 마지막 프레임 시간 갱신
             lastFrameTime = performance.now();
-    }
+        }
 
         // 공 그리기 함수
         function drawBall(x, y, color, radius) {
@@ -353,7 +353,7 @@
         window.addEventListener('keydown', function (e) {
             // 눌린 키가 화살표 키인지 확인
             if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-            e.preventDefault(); // 기본 동작 방지 (스크롤)
+                e.preventDefault(); // 기본 동작 방지 (스크롤)
             }
         });
 
