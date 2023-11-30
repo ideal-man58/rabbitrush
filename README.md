@@ -4,7 +4,7 @@
 
 [rabbitrush 웹사이트](https://rabbitrush.kr)에서 게임을 즐겨보세요.
 
-개발자 최고 기록 : 56.
+개발자 최고 기록 : 59.
 <img src="https://rabbitrush.kr/ex_gameplay.png" alt="ex_gameplay" width="100%">
 
 
